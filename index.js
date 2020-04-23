@@ -1,4 +1,5 @@
-console.log('starting the merc');
+console.log('starting the merc!');
+require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
