@@ -2,6 +2,7 @@ console.log('starting the merc!');
 require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const greeting = require('./src/functions/greeting');
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -15,13 +16,40 @@ client.on('message', msg => {
         msg.channel.send('polo');
     }
 
-    if (msg.content.search(/peanut/i)) {
-        // msg.channel.send("https://youtu.be/x6XGzq-Afrg?t=52");
+    if (msg.content.includes('peanut')) {
+        msg.channel.send("https://youtu.be/x6XGzq-Afrg?t=52");
+    }
+    
+    if (msg.content.includes('excercise') || msg.content.includes('fit')) {
+
+        let gifs = [
+            '5w2hYvUDpaJaXMofhf',
+            'xkhE54JlWjRNYXCYbu',
+            'wKdnwYxVbXpwXZ99NI',
+            '35Koksb9GwsifYhu9Q',
+            '2wXstu3OO7EXqHhwgA',
+            'pslSsRVsraewaPzGbx',
+            'X8VxdpqWMqbTNQs2RY',
+            '1Ajo7ORbVdheMjfLjq',
+            'Ojr8CstK9rP8xcS9Ek'
+        ];
+
+        let gif = gifs[Math.floor(Math.random()*gifs.length)];
+        msg.channel.send(`https://media.giphy.com/media/${gif}/giphy.gif`);
+    }
+
+    if (msg.content.startsWith('hello') && (Math.round(Math.random() * 100) == 69 || process.env.APP_DISABLE_RANDOM_CHECKS)) {
+        msg.channel.send(greeting());
+    }
+
+    if (msg.content.includes('act natural')) {
+        msg.channel.send('https://media.giphy.com/media/xTeWOxUNxVWGeOW2wE/giphy.gif');
     }
 
     if (msg.content.startsWith('morning') && msg.mentions) {
-        console.log(msg.mentions);
-        console.log(msg.mentions.users.first());
+        if (msg.mentions.users.first() == client.user && new Date().getHours < 12) {
+            msg.channel.send('jhdsfjhsdjfhsjdh');
+        }
     }
 });
 
