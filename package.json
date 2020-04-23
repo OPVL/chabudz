@@ -1,0 +1,27 @@
+{
+  "name": "chabuddy",
+  "version": "0.1.0",
+  "description": "Gucci. Girls. Girth.",
+  "main": "main.js",
+  "dependencies": {
+    "debug": "^4.1.1",
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "marco"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "ukg",
+    "meme"
+  ],
+  "author": "opvl",
+  "license": "ISC",
+  "repository": {
+    "url": "https://github.com/OPVL/chabudz",
+    "type": "dev"
+  }
+}
