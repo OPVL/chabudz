@@ -38,7 +38,10 @@ client.on('message', msg => {
         msg.channel.send(`https://media.giphy.com/media/${gif}/giphy.gif`);
     }
 
-    if (msg.content.startsWith('hello') && (Math.round(Math.random() * 100) == 69 || process.env.APP_DISABLE_RANDOM_CHECKS)) {
+    // TODO: 
+    // wrap random and time checks in function that you can pass in to as callbacks. 
+    // Checks env var, if env var is disabled the return result of callback
+    if (msg.content.startsWith('hello') && (Math.round(Math.random() * 100) == 69 || process.env.APP_TRIGGER_DISABLE_RANDOM_CHECKS)) {
         msg.channel.send(greeting());
     }
 
