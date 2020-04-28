@@ -5,11 +5,9 @@ const greeting = () => {
         return 'https://media.giphy.com/media/mnqerRRvbjakl3NnQA/giphy.gif';
 
     if (now > 11)
-        return 'im shitting fuck off';
+        return 'https://media.giphy.com/media/401C6a3ghtrYiHTZnn/giphy.gif';
     
-    return 'https://media.giphy.com/media/mnqerRRvbjakl3NnQA/giphy.gif'
+    return 'https://media.giphy.com/media/7e77FVg6fNhfQM61lh/giphy.gif'
 }
 
-
-// 'https://media.giphy.com/media/mnqerRRvbjakl3NnQA/giphy.gif'
 module.exports = greeting;
