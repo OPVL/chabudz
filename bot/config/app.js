@@ -2,6 +2,7 @@ const env = require('./env');
 
 module.exports = {
     token: env('DISCORD_APP_SECRET'),
+    key: env('APP_KEY'),
     environment: env('APP_ENVIRONMENT', 'dev'),
     debug: {
         message_checks: {
@@ -14,6 +15,7 @@ module.exports = {
         level: 0,
     },
     features: {
-        startup_message: env('APP_FEATURE_STARTUP_MESSAGE', true)
+        startup_message: env('APP_FEATURE_STARTUP_MESSAGE', true),
+        heartbeat: env('APP_FEATURE_HEARTBEAT', true),
     }
 }

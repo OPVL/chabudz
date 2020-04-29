@@ -1,6 +1,6 @@
 
 module.exports.run = (client, msg) => {
-    if (!msg.guild || !msg.guild.available) console.log('Guild Unavailable'); break;
+    if (!msg.guild || !msg.guild.available) console.log('Guild Unavailable'); return;
 
     const clientM = msg.guild.member(client.user)
     const member = msg.guild.member(msg.author)
@@ -12,7 +12,7 @@ module.exports.run = (client, msg) => {
     let messages = msg.channel;
 
     console.log(messages.length);
-    break;
+    return;
     let limit = 10;
     let deleted = 0;
     let user = null;

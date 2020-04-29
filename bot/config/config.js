@@ -2,7 +2,7 @@
  * @param {string} key should be in format eg. 'commands.help'
  * @param {any} def
  */
-module.exports = (key, def) => {
+module.exports = (key, def = null) => {
     const keys = key.split(".");
 
     let value = require(`./${keys[0]}`);

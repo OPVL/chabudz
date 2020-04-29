@@ -1,13 +1,13 @@
 if (Number(process.version.slice(1).split('.')[0]) < 12) throw new Error('Node 12.0.0 or higher is required. Update Node on your system.')
 
 const init = () => {
-	client.prefix = require('./config.js').prefix
-	client.levels = require('./config.js').levels
+    client.prefix = require('./config.js').prefix
+    client.levels = require('./config.js').levels
 
-	client.loadCommands(`${__dirname}/commands/`)
-	client.loadEvents(`${__dirname}/events/`)
+    client.loadCommands(`${__dirname}/commands/`)
+    client.loadEvents(`${__dirname}/events/`)
 
-	client.login(client.token)
+    client.login(client.token)
 }
 
 console.log('Starting the Merc!');
@@ -19,7 +19,7 @@ const greeting = require('./bot/commands/triggers/greeting');
 const config = require('./bot/config/config');
 
 client.on('ready', () => {
-    if (config('APP_DEBUG_MESSAGE_LEVEL') < 4) {
+    if (config('app.features.startup_message') < 4) {
         console.log(`Logged in as ${client.user.tag}!`);
     }
 });
@@ -27,8 +27,14 @@ client.on('ready', () => {
 // event listener on message
 client.on('message', msg => {
 
-    if (isFromMe(msg))
+    console.log(msg.author);
+    if (
+        msg.content.includes('://') ||
+        msg.author.bot ||
+        isFromMe(msg)
+    ) {
         return;
+    }
 
     if (msg.content === 'marco') {
         msg.channel.send('polo');
@@ -36,6 +42,36 @@ client.on('message', msg => {
 
     if (msg.content.includes('peanut')) {
         msg.channel.send("https://youtu.be/x6XGzq-Afrg?t=52");
+    }
+let num = Math.round(Math.random() * 5);
+let target = 5
+console.log(`chances are ${num} to ${target}`);
+    if ((num == target) || config('app.debug.message_checks.global')) {
+        console.log(`"quote mode"`);
+        let split = msg.content.split(" ");
+        let length = split.length;
+        if (length < 7) {
+            return;
+        }
+        let quotes = (Math.round(Math.random() * length)) * 0.5;
+
+        console.log(quotes)
+        if (quotes <= 0) {
+            quotes = 1;
+        }
+        console.log(quotes);
+        console.log(`split length: ${length} quotes: ${quotes}`);
+        let message = split.map((msg) => {
+            if ((Math.round(Math.random() * 25) == 4) && quotes > 0) {
+                quotes--;
+                console.log(quotes);
+                return `"${msg}"`;
+            }
+
+            return msg;
+        });
+        msg.channel.send(message.join(' '));
+        return;
     }
 
     if (msg.content.includes('exercise') || msg.content.includes('fit')) {
@@ -75,27 +111,27 @@ client.on('message', msg => {
         }
     }
 
-    if (config('APP_COMMAND_ENABLED') &&
-        msg.content.startsWith(config('APP_COMMAND_KEY'))) {
-        console.log(`Super modifier found: "${msg.content.valueOf()}".`);
+    // if (config('commands.enabled') &&
+    // msg.content.startsWith(config('APP_COMMAND_KEY'))) {
+    // console.log(`Super modifier found: "${msg.content.valueOf()}".`);
 
-        let command = msg.content.valueOf().substring(1).split(" ");
-        console.log(command);
-        switch (command[0]) {
-            case 'cleanup':
-                msg.channel.send('triggering cleanup');
+    // let command = msg.content.valueOf().substring(1).split(" ");
+    // console.log(command);
+    // switch (command[0]) {
+    //     case 'cleanup':
+    //         msg.channel.send('triggering cleanup');
 
-                
-                break;
 
-            default:
-                break;
-        }
-    }
+    //         break;
 
-    if (msg.content.valueOf() === 'F') {
-        msg.channel.send('F');
-    }
+    //     default:
+    //         break;
+    // }
+    // }
+
+    // if (msg.content.valueOf() === 'F') {
+    //     msg.channel.send('F');
+    // }
 });
 
 /**
@@ -117,4 +153,4 @@ client.on('guildMemberAdd', member => {
     channel.send(`Welcome to the server, ${member}`);
 });
 
-client.login(config("DISCORD_APP_SECRET"));
+client.login(config('app.token'));

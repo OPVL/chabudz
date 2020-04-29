@@ -12,6 +12,7 @@ console.log('all required');
 
 const init = () => {
     console.log('logging in');
+    console.log(config('commands.dir'));
     client.login(config('app.token'));
 }
 
