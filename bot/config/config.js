@@ -8,19 +8,20 @@ module.exports = (key, def) => {
     let value = require(`./${keys[0]}`);
     switch (keys.length) {
         case 5:
-            return value[keys[1]][keys[2]][keys[3]][keys[4]] ?? def;
+            value = value[keys[1]][keys[2]][keys[3]][keys[4]];
             break;
         case 4:
-            return value[keys[1]][keys[2]][keys[3]] ?? def;
+            value = value[keys[1]][keys[2]][keys[3]];
             break;
         case 3:
-            return value[keys[1]][keys[2]] ?? def;
+            value = value[keys[1]][keys[2]];
             break;
         case 2:
-            return value[keys[1]] ?? def;
-            break;
-        default:
-            return value ?? def;
+            value = value[keys[1]];
             break;
     }
+
+    value = value ? value : def;
+    
+    return value;
 }
