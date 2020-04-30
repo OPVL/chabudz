@@ -1,21 +1,12 @@
-const env = require('./env');
+const env = require('../util/env');
 
 module.exports = {
     token: env('DISCORD_APP_SECRET'),
     key: env('APP_KEY'),
     environment: env('APP_ENVIRONMENT', 'dev'),
-    debug: {
-        message_checks: {
-            global: env('APP_DEBUG_DISABLE_ALL_CHECKS', false),
-            random: env('APP_DEBUG_DISABLE_RANDOM_CHECKS', false),
-            time: env('APP_DEBUG_DISABLE_TIME_CHECKS', false),
-        }
-    },
-    log: {
-        level: 0,
-    },
-    features: {
-        startup_message: env('APP_FEATURE_STARTUP_MESSAGE', true),
-        heartbeat: env('APP_FEATURE_HEARTBEAT', true),
-    }
+    version: env('APP_VERSION', 'undefined'),
+    debug: require('./debug'),
+    log: require('./log'),
+    features: require('./features'),
+    commands: require('./commands'),
 }

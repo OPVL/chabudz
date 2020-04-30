@@ -27,7 +27,7 @@ module.exports.run = (client, msg) => {
     });
 }
 
-exports.help = {
+exports.meta = {
     name: 'Cleanup',
     category: 'Moderation',
     description: "Used to mass-clean messages from a text channel, you can also use parameters to target certain messages based on their content.",

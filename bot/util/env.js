@@ -1,3 +1,4 @@
+const log = require('./log');
 /**
  * return a key from the environment file with a default if it's not found
  * @param {string} key 
@@ -7,29 +8,22 @@ const env = (key, def = null) => {
 
     let val = process.env[key];
 
-    console.log(`Getting ENV_VAR: ${key} AS ${val}`);
-
     if (!val || val.length == 0) {
+        log.warn(3, `ENV: ${key} was empty?`);
         return def;
     }
 
     if (isBool(val)) {
-        if (parseInt(process.env.APP_DEBUG_MESSAGE_LEVEL) < 1) {
-            console.log(`key: ${key} is bool`);
-        }
+        log.debug(1, `ENV: ${key} is bool`);
         return val.toLowerCase() == 'true';
     }
 
     if (isInt(val)) {
-        if (parseInt(process.env.APP_DEBUG_MESSAGE_LEVEL) < 1) {
-            console.log(`key: ${key} is int`);
-        }
+        log.debug(1, `ENV: ${key} is int`);
         return parseInt(val);
     }
 
-    if (parseInt(process.env.APP_DEBUG_MESSAGE_LEVEL) < 1) {
-        console.log(`key: ${key} is handled as string`);
-    }
+    log.debug(1, `ENV: ${key} is string`);
 
     return val;
 }
