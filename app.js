@@ -9,13 +9,11 @@ const client = new App.Chabudz();
 client.emit('debug', 'Initial Requirements Loaded required');
 
 const init = () => {
-    console.log(config('app'));
     client.emit('debug', 'logging in');
     client.login(config('app.token'));
 
-    console.log('C:\\Users\\xxroc\\Documents\\Bots\\Chabuddy\\bot\\commands')
-    console.log(`${__dirname}\\bot\\${config('commands.dir')}`);
     client.loadCommands(`${__dirname}\\bot\\${config('commands.dir')}`);
+    client.loadTriggers(`${__dirname}\\bot\\${config('triggers.dir')}`);
 }
 
 client.on('ready', () => {
@@ -34,6 +32,9 @@ client.on('error', e => { if (config('app.log.level') < 5) console.error(e.stack
 client.on('warn', e => { if (config('app.log.level') < 3) console.warn(e) })
 client.on('debug', e => { if (config('app.log.level') < 1) console.debug(e) })
 
-client.on('message', (message) => { require('./bot/events/message').run(client, message) });
+client.on('message', (message) => { 
+    require('./bot/events/message').run(client, message);
+    // message.content.search()
+});
 
 init();

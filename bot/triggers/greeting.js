@@ -1,4 +1,25 @@
-const greeting = () => {
+exports.meta = {
+    name: "Greeting",
+    description: "Careful, he's always listening.",
+    triggers: [
+        "hello",
+        "hi",
+        "morning",
+        "hiya",
+        "howdy",
+        "hey",
+        "hola",
+    ],
+    example: "Damn I sure do love *exercise*!",
+    signature: "greeting"
+}
+
+module.exports.run = (client, message, args) => {
+
+    message.channel.send(getGif());
+}
+
+function getGif() {
     let now = new Date().getUTCHours();
 
     if (now > 17)
@@ -9,5 +30,3 @@ const greeting = () => {
     
     return 'https://media.giphy.com/media/7e77FVg6fNhfQM61lh/giphy.gif'
 }
-
-module.exports = greeting;

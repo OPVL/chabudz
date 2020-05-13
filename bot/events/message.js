@@ -10,4 +10,5 @@ module.exports.run = async (client, message) => {
     if (message.content.startsWith(config('commands.prefix')))
         return await require('./command').run(client, message);
 
+    return await require('./trigger').run(client, message);
 }

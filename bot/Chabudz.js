@@ -9,6 +9,8 @@ class Chabudz extends Client {
 
         this.commands = new Collection();
         this.aliases = new Collection();
+        this.triggers = new Collection();
+        this.triggerTriggers = new Collection();
     }
 
     loadConfig() {
@@ -51,39 +53,37 @@ class Chabudz extends Client {
             }
         });
 
-        console.log(this.commands);
-
+        this.debug(`Successfully loaded ${this.commands.size} commands`);
     }
 
     async loadTriggers() {
-        if (!config('commands.enabled')) return;
+        if (!config('triggers.enabled')) return;
+        let dir = `${__dirname}\\${config('triggers.dir')}`
 
-        this.emit('debug', 'loading commands');
+        this.emit('debug', 'loading triggers');
         const files = await readdir(dir);
         this.emit('debug', files);
         files.forEach(file => {
             if (!file.endsWith('.js')) return;
             const name = file.split('.')[0];
-            this.emit('debug', `CMD: loading command ${name}`);
+            this.emit('debug', `CMD: loading trigger ${name}`);
             try {
                 const props = require(`${dir.endsWith('/') ? dir : `${dir}/`}${file}`);
 
                 if (props.init) {
                     props.init(this);
                 }
-                this.commands.set(props.meta.signature, props);
+                this.triggers.set(props.meta.name, props);
 
-                if (props.meta.aliases) {
-                    props.meta.aliases.forEach((alias) => this.aliases.set(alias, props.meta.signature))
+                if (props.meta.triggers) {
+                    props.meta.triggers.forEach((trigger) => this.triggerTriggers.set(trigger, props.meta.name))
                 }
-                this.emit('debug', `loaded command ${name}`);
+                this.emit('debug', `loaded trigger ${name}`);
             } catch (e) {
-                this.emit('warn', `couldn't load command ${name}\n${e.stack}`)
+                this.emit('warn', `couldn't load trigger ${name}\n${e.stack}`)
             }
         });
-
-        console.log(this.commands);
-
+        this.debug(`Successfully loaded ${this.triggers.size} triggers`);
     }
 
     async phoneHome() {
