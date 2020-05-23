@@ -7,7 +7,7 @@ module.exports.run = async (client, message) => {
         return message.content.search(trigger) >= 0;
     });
 
-    if (!ayo.length > 0){
+    if (!ayo.length > 0) {
         client.emit('debug', `No matches found out of ${total} triggers`);
         return false;
     }
@@ -24,10 +24,14 @@ function getTriggers(item, index) {
 const executeTrigger = (trigger, client, message) => {
     let cmd = client.triggers.get(trigger) || client.triggers.get(client.triggerTriggers.get(trigger))
 
-	if (!cmd) return client.emit('debug', `Unable to retrieve action from trigger ${trigger}`);
+    if (!cmd) return client.debug(`Unable to retrieve action from trigger ${trigger}`);
 
-	if (!config(`triggers.${cmd.meta.signature}`)) return message.channel.send(`Encountered an error, The trigger **${cmd.meta.name}** has been disabled.`)
-	if (!message.guild && cmd.config.guildOnly) return message.channel.send(`Encountered an error, The command **${cmd.meta.name}** can only be used inside a guild.`)
+    if (!config(`triggers.${cmd.meta.signature}`))
+        return client.warn(`${cmd.meta.name} is not enabled`);
+    ;
 
-    cmd.run(client, message)    
+    if (!message.guild && cmd.config.guildOnly)
+        return client.warn(`${cmd.meta.name} is not allowed outside of a guild`);
+
+    cmd.run(client, message)
 }

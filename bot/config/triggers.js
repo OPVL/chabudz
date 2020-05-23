@@ -9,4 +9,5 @@ module.exports = {
     exercise: env('APP_TRIGGER_EXERCISE_ENABLED', true),
     greeting: env('APP_TRIGGER_GREETING_ENABLED', true),
     uptime: env('APP_COMMAND_UPTIME_ENABLED', true),
+    payRespects: env('APP_TRIGGER_PAY_RESPECTS_ENABLED', true),
 }
