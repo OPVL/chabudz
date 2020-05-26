@@ -27,4 +27,5 @@ const gifs = [
 module.exports.run = (client, message, args) => {
     let gif = gifs[Math.floor(Math.random() * gifs.length)];
     message.channel.send(`https://media.giphy.com/media/${gif}/giphy.gif`);
+    return true;
 }

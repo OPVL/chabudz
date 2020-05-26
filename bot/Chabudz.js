@@ -11,6 +11,7 @@ class Chabudz extends Client {
         this.aliases = new Collection();
         this.triggers = new Collection();
         this.triggerTriggers = new Collection();
+        this.random = new Collection();
     }
 
     loadConfig() {
@@ -86,6 +87,32 @@ class Chabudz extends Client {
         this.debug(`Successfully loaded ${this.triggers.size} triggers`);
     }
 
+    async loadRandom() {
+        if (!config('random.enabled')) return;
+        let dir = `${__dirname}\\${config('random.dir')}`
+
+        this.emit('debug', 'loading random triggers');
+        const files = await readdir(dir);
+        this.emit('debug', files);
+        files.forEach(file => {
+            if (!file.endsWith('.js')) return;
+            const name = file.split('.')[0];
+            this.emit('debug', `CMD: loading random trigger ${name}`);
+            try {
+                const props = require(`${dir.endsWith('/') ? dir : `${dir}/`}${file}`);
+
+                if (props.init) {
+                    props.init(this);
+                }
+                this.random.set(props.meta.name, props);
+
+                this.emit('debug', `loaded random trigger ${name}`);
+            } catch (e) {
+                this.emit('warn', `couldn't load random trigger ${name}\n${e.stack}`)
+            }
+        });
+        this.debug(`Successfully loaded ${this.random.size} random triggers`);
+    }
     async phoneHome() {
         if (!config('app.features.heartbeat') || !config('app.key'))
             return;

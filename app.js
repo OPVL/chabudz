@@ -14,6 +14,7 @@ const init = () => {
 
     client.loadCommands(`${__dirname}\\bot\\${config('commands.dir')}`);
     client.loadTriggers(`${__dirname}\\bot\\${config('triggers.dir')}`);
+    client.loadRandom(`${__dirname}\\bot\\${config('random.dir')}`);
 }
 
 client.on('ready', () => {
@@ -33,8 +34,7 @@ client.on('warn', e => { if (config('app.log.level') < 3) console.warn(e) })
 client.on('debug', e => { if (config('app.log.level') < 1) console.debug(e) })
 
 client.on('message', (message) => { 
-    require('./bot/events/message').run(client, message);
-    // message.content.search()
+    require('./bot/events/message').run(client, message);    
 });
 
 init();

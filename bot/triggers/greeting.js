@@ -24,8 +24,11 @@ module.exports.run = (client, message, args) => {
 
     console.log(`${matches.length} matches found`);
 
-    if (matches.length > 0)
-        return message.channel.send(getGif());
+    if (matches.length > 0){
+        message.channel.send(getGif());
+        return true;
+    }
+    return false;
 }
 //
 function getGif() {

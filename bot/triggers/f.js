@@ -19,9 +19,11 @@ module.exports.run = (client, message, args) => {
         if (m.index === regex.lastIndex) {
             regex.lastIndex++;
         }
-        
-        return message.channel.send('F');
+
+        message.channel.send('F');
+        return true;
     }
 
-        client.emit('debug', 'F not properly matched');
+    client.emit('debug', 'F not properly matched');
+    return false;
 }

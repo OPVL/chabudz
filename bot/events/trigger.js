@@ -9,12 +9,15 @@ module.exports.run = async (client, message) => {
 
     if (!ayo.length > 0) {
         client.emit('debug', `No matches found out of ${total} triggers`);
-        return false;
+        return await require('./random').run(client, message);
     }
 
     console.log(`Trigger matched "${ayo[0]}"`);
 
-    return executeTrigger(ayo[0], client, message);
+    if (executeTrigger(ayo[0], client, message))
+        return true;
+
+    return await require('./random').run(client, message);
 }
 
 function getTriggers(item, index) {
@@ -33,5 +36,5 @@ const executeTrigger = (trigger, client, message) => {
     if (!message.guild && cmd.config.guildOnly)
         return client.warn(`${cmd.meta.name} is not allowed outside of a guild`);
 
-    cmd.run(client, message)
+    return cmd.run(client, message)
 }
