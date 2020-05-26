@@ -5,8 +5,4 @@ module.exports = {
     key: env('APP_KEY'),
     environment: env('APP_ENVIRONMENT', 'dev'),
     version: env('APP_VERSION', 'undefined'),
-    debug: require('./debug'),
-    log: require('./log'),
-    features: require('./features'),
-    commands: require('./commands'),
 }
