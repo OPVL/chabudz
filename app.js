@@ -12,9 +12,9 @@ const init = () => {
     client.emit('debug', 'logging in');
     client.login(config('app.token'));
 
-    client.loadCommands(`${__dirname}\\bot\\${config('commands.dir')}`);
-    client.loadTriggers(`${__dirname}\\bot\\${config('triggers.dir')}`);
-    client.loadRandom(`${__dirname}\\bot\\${config('random.dir')}`);
+    client.loadCommands(`${__dirname}/bot/${config('commands.dir')}`);
+    client.loadTriggers(`${__dirname}/bot/${config('triggers.dir')}`);
+    client.loadRandom(`${__dirname}/bot/${config('random.dir')}`);
 }
 
 client.on('ready', () => {

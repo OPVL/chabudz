@@ -29,7 +29,7 @@ class Chabudz extends Client {
     async loadCommands() {
         if (!config('commands.enabled')) return;
 
-        let dir = `${__dirname}\\${config('commands.dir')}`
+        let dir = `${__dirname}/${config('commands.dir')}`
         this.emit('debug', 'loading commands');
         const files = await readdir(dir);
         this.emit('debug', files);
@@ -59,7 +59,7 @@ class Chabudz extends Client {
 
     async loadTriggers() {
         if (!config('triggers.enabled')) return;
-        let dir = `${__dirname}\\${config('triggers.dir')}`
+        let dir = `${__dirname}/${config('triggers.dir')}`
 
         this.emit('debug', 'loading triggers');
         const files = await readdir(dir);
@@ -89,7 +89,7 @@ class Chabudz extends Client {
 
     async loadRandom() {
         if (!config('random.enabled')) return;
-        let dir = `${__dirname}\\${config('random.dir')}`
+        let dir = `${__dirname}/${config('random.dir')}`
 
         this.emit('debug', 'loading random triggers');
         const files = await readdir(dir);
