@@ -3,7 +3,7 @@ module.exports.run = (client, message, args) => {
 
     let diff = now - process.startUpTime;
 
-    let unit = args[0] ?? 's';
+    let unit = args[0] || 's';
     console.log(args);
 
     switch (unit) {
