@@ -34,6 +34,6 @@ function getConfItem(keys, def) {
             break;
     }
 
-    value = value ?? def;
+    value = value || def;
     return value;
 }
