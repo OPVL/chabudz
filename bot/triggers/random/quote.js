@@ -3,8 +3,8 @@ const config = require('../../util/config');
 module.exports.run = (client, message, args) => {
     console.log(`"quote mode triggered"`);
 
-    let num = Math.round(Math.random() * 5);
-    let target = 5
+    let num = Math.floor(Math.random() * 100);
+    let target = Math.floor(Math.random() * 50);
     /**
      * TRUE != || 
      * 
