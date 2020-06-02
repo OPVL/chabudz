@@ -29,9 +29,9 @@ client.on('ready', () => {
 });
 
 client.emit('debug', 'Registering Listeners');
-client.on('error', e => { if (config('app.log.level') < 5) console.error(e.stack || JSON.stringify(e) || e.toString()) })
-client.on('warn', e => { if (config('app.log.level') < 3) console.warn(e) })
-client.on('debug', e => { if (config('app.log.level') < 1) console.debug(e) })
+client.on('error', e => { if (config('log.level') < 5) console.error(e.stack || JSON.stringify(e) || e.toString()) })
+client.on('warn', e => { if (config('log.level') < 3) console.warn(e) })
+client.on('debug', e => { if (config('log.level') < 1) console.debug(e) })
 
 client.on('message', (message) => { 
     require('./bot/events/message').run(client, message);    
